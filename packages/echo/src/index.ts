@@ -170,7 +170,7 @@ export function handler(req: http.IncomingMessage, res: http.ServerResponse, bod
   }
   if (path === "/encoding/utf8") return send(200, "unicode: \u00e9\u00e8 \u2603 \u{1f600}");
   if (path === "/time/now") return send(200, new Date().toUTCString());
-  if (path === "/html") {
+  if (path === "/html" || path === "/type/html") {
     res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     return void res.end("<!doctype html><html><head><title>echo</title></head><body><h1>Hello</h1></body></html>");
   }

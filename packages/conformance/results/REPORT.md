@@ -1,15 +1,15 @@
 # Conformance report
 
-Reference: newman 6.2.3. Generated 2026-10-21T19:04:49.644Z.
+Reference: newman 6.2.3. Generated 2026-10-21T19:06:50.473Z.
 
 | Metric | Value |
 | --- | --- |
 | Collections | 45 |
-| Identical results | 26 |
+| Identical results | 27 |
 | Differences | 15 |
 | Unsupported (v1 format) | 3 |
-| Errors | 1 |
-| Assertions matched | 215 / 286 (75.2%) |
+| Errors | 0 |
+| Assertions matched | 216 / 287 (75.3%) |
 
 | Collection | Result | newman assertions (failed) | postbench assertions (failed) |
 | --- | --- | --- | --- |
@@ -49,7 +49,7 @@ Reference: newman 6.2.3. Generated 2026-10-21T19:04:49.644Z.
 | newman/request-name-in-script.postman_collection.json | mismatch | 1 (0) | 1 (1) |
 | newman/sandbox-libraries.postman_collection.json | mismatch | 10 (0) | 8 (8) |
 | newman/semicolon-tests.postman_collection.json | match | 2 (2) | 2 (2) |
-| newman/set-next-request.postman_collection.json | error: timed out after 30000 ms | 0 (0) | 0 (0) |
+| newman/set-next-request.postman_collection.json | match | 1 (0) | 1 (0) |
 | newman/slashed-variable-names/slashed-variable-names.postman_collection.json | match | 3 (0) | 3 (0) |
 | newman/steph/steph.postman_collection.json | match | 4 (0) | 4 (0) |
 | newman/super-sandbox-test.postman_collection.json | mismatch | 26 (1) | 24 (1) |
@@ -72,8 +72,8 @@ Reference: newman 6.2.3. Generated 2026-10-21T19:04:49.644Z.
 
 ### newman/disabled-and-duplicate-variables/disabled-and-duplicates.postman_collection.json
 
-- step 0 "http://127.0.0.1:35765/get" assertion 0: ["Disabled variable",true] vs ["Disabled variable",false]
-- step 0 "http://127.0.0.1:35765/get" assertion 1: ["1 Enabled and 1 Disabled variable",true] vs ["1 Enabled and 1 Disabled variable",false]
+- step 0 "http://127.0.0.1:35221/get" assertion 0: ["Disabled variable",true] vs ["Disabled variable",false]
+- step 0 "http://127.0.0.1:35221/get" assertion 1: ["1 Enabled and 1 Disabled variable",true] vs ["1 Enabled and 1 Disabled variable",false]
 
 ### newman/echo-v2.postman_collection.json
 
@@ -137,8 +137,8 @@ Reference: newman 6.2.3. Generated 2026-10-21T19:04:49.644Z.
 
 - step 0 "r1" assertion 6: ["tv4 present",true] vs null
 - step 0 "r1" assertion 7: ["CryptoJS md5",true] vs null
-- step 1 "r2" assertion 1: ["Correct GUID: c7491f2a-0f43-4b76-a336-3e3cfcc28e8e",true] vs ["Correct GUID: 85b43151-72f1-4d35-a733-f145762ce727",true]
-- step 1 "r2" assertion 2: ["Correct Random: 77",true] vs ["Correct Random: 94",true]
+- step 1 "r2" assertion 1: ["Correct GUID: 27046cd5-5ec7-4eb7-9592-443fe12f0a95",true] vs ["Correct GUID: 4b441862-6901-41cd-a94f-ad804c556b3d",true]
+- step 1 "r2" assertion 2: ["Correct Random: 58",true] vs ["Correct Random: 435",true]
 
 ### newman/tc4/tc4.postman_collection.json
 
