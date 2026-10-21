@@ -102,6 +102,12 @@ importers:
         specifier: ^1.11.6
         version: 1.11.6
 
+  packages/mock:
+    dependencies:
+      '@postbench/core':
+        specifier: workspace:*
+        version: link:../core
+
   packages/runner:
     dependencies:
       '@postbench/core':
