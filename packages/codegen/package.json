@@ -1,0 +1,24 @@
+{
+  "name": "@postbench/codegen",
+  "version": "0.1.0",
+  "description": "Generate curl, fetch, Python requests and HTTPie snippets from prepared requests",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@postbench/engine": "workspace:*"
+  },
+  "devDependencies": {
+    "@postbench/core": "workspace:*",
+    "@postbench/echo": "workspace:*"
+  }
+}
