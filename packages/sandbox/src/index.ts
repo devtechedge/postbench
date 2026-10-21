@@ -6,6 +6,9 @@ export * from "./types.js";
 export { buildGlobals, makeResponse, makeRequest, PendingTracker } from "./pm.js";
 export { KVList, ScriptUrl } from "./lists.js";
 
+/** Legacy sandbox helpers that old collections rely on. */
+const LEGACY_PRELUDE = `Object.defineProperty(String.prototype, "has", { value: function (s) { return this.indexOf(s) > -1; }, writable: true, configurable: true });`;
+
 export interface RunScriptOptions {
   /** Max time to wait for async work (timers, sendRequest, async tests). */
   timeout?: number;
@@ -19,6 +22,7 @@ export interface RunScriptOptions {
 export async function runScript(code: string, ctx: ScriptContext, opts: RunScriptOptions = {}): Promise<ScriptResult> {
   const { globals, result, tracker, finalize } = buildGlobals(ctx);
   const context = vm.createContext({ ...globals, Buffer, TextEncoder, TextDecoder, URL, URLSearchParams, structuredClone });
+  vm.runInContext(LEGACY_PRELUDE, context);
   const timeout = opts.timeout ?? 10000;
   const capture = (err: unknown) => {
     if (result.error) return;
