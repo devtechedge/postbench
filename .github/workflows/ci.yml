@@ -27,3 +27,27 @@ jobs:
       - run: pnpm build
       - run: pnpm typecheck
       - run: pnpm test
+
+  desktop:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Smoke test the Electron app
+        run: xvfb-run -a pnpm --filter @postbench/desktop run smoke
+      - name: Package AppImage and zip
+        run: pnpm --filter @postbench/desktop exec electron-builder --linux AppImage zip --publish never
+      - uses: actions/upload-artifact@v4
+        with:
+          name: postbench-linux
+          path: |
+            apps/desktop/release/*.AppImage
+            apps/desktop/release/*.zip
+          if-no-files-found: error
