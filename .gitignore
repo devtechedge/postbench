@@ -10,3 +10,4 @@ playwright-report
 .vercel
 packages/conformance/results/report.json
 apps/web/test-results
+.env*
