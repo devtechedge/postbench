@@ -336,8 +336,8 @@ export function buildGlobals(ctx: ScriptContext): BuiltGlobals {
     setTimeout: tracker.setTimeout.bind(tracker),
     clearTimeout: tracker.clearTimeout.bind(tracker),
     setImmediate: (fn: () => void) => tracker.setTimeout(fn, 0),
-    atob: (s: string) => Buffer.from(s, "base64").toString("binary"),
-    btoa: (s: string) => Buffer.from(s, "binary").toString("base64"),
+    atob: (s: string) => globalThis.atob(s),
+    btoa: (s: string) => globalThis.btoa(s),
     CryptoJS,
     _,
     ...legacy,
@@ -367,7 +367,7 @@ const MODULES: Record<string, unknown> = { chai, lodash: _, "crypto-js": CryptoJ
 export function requireModule(name: string): unknown {
   if (name in MODULES) return MODULES[name];
   if (name === "uuid") return { v4: () => (globalThis.crypto as Crypto).randomUUID() };
-  if (name === "atob") return (s: string) => Buffer.from(s, "base64").toString("binary");
-  if (name === "btoa") return (s: string) => Buffer.from(s, "binary").toString("base64");
+  if (name === "atob") return (s: string) => globalThis.atob(s);
+  if (name === "btoa") return (s: string) => globalThis.btoa(s);
   throw new Error(`Cannot find module '${name}'`);
 }
