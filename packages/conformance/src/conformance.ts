@@ -175,13 +175,26 @@ export interface Report {
   totals: { cases: number; match: number; mismatch: number; unsupported: number; error: number; newmanAssertions: number; matchedAssertions: number };
 }
 
+const CASE_TIMEOUT_MS = Number(process.env.CONFORMANCE_CASE_TIMEOUT_MS ?? 30000);
+
 export async function runAll(root: string): Promise<Report> {
   const echo = await startEchoServer();
   const work = mkdtempSync(join(tmpdir(), "pb-conf-"));
   cpSync(root, join(work, "src"), { recursive: true });
   const cases: CaseResult[] = [];
   try {
-    for (const f of discover(root)) cases.push(await runCase(f, root, echo.url, work));
+    for (const f of discover(root)) {
+      const name = relative(root, f);
+      const empty = { requests: 0, assertions: 0, failed: 0 };
+      let timer: NodeJS.Timeout | undefined;
+      const timeout = new Promise<CaseResult>((res) => {
+        timer = setTimeout(() => res({ name, status: "error", reason: `timed out after ${CASE_TIMEOUT_MS} ms`, newman: empty, postbench: empty, matchedAssertions: 0 }), CASE_TIMEOUT_MS);
+      });
+      const r = await Promise.race([runCase(f, root, echo.url, work), timeout]);
+      clearTimeout(timer);
+      if (process.env.CONFORMANCE_VERBOSE) console.error(`${r.status.padEnd(11)} ${name}`);
+      cases.push(r);
+    }
   } finally {
     await echo.close();
   }
