@@ -207,7 +207,14 @@ function once(req: PreparedRequest, bytes: Buffer, opts: SendOptions): Promise<R
       const mod = isHttps ? https : http;
       r = mod.request({ ...reqOpts, ...(isHttps ? tlsOpts : {}), protocol: u.protocol, hostname: u.hostname.replace(/^\[|\]$/g, ""), port: u.port || (isHttps ? 443 : 80), path: u.pathname + u.search }, onResponse);
     }
-    if (opts.timeout) r.setTimeout(opts.timeout, () => r.destroy(new Error(`ETIMEDOUT: request timed out after ${opts.timeout}ms`)));
+    if (opts.timeout) {
+      // A wall-clock timer covers DNS and connect, which socket idle
+      // timeouts do not.
+      const timer = setTimeout(() => r.destroy(new Error(`ETIMEDOUT: request timed out after ${opts.timeout}ms`)), opts.timeout);
+      const clear = () => clearTimeout(timer);
+      r.on("close", clear);
+      r.on("error", clear);
+    }
     if (opts.signal) opts.signal.addEventListener("abort", () => r.destroy(new Error("aborted")), { once: true });
     r.on("socket", hookSocket);
     r.on("error", reject);

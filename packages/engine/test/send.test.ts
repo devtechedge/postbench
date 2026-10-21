@@ -209,3 +209,11 @@ describe("transport", () => {
     server.close();
   });
 });
+
+describe("connect timeout", () => {
+  it("times out while connecting to a blackholed address", async () => {
+    const t0 = Date.now();
+    await expect(send(prepareRequest({ url: "http://10.255.255.1:81/" }, { resolver: resolver() }), { timeout: 300 })).rejects.toThrow();
+    expect(Date.now() - t0).toBeLessThan(3000);
+  });
+});
