@@ -6,15 +6,23 @@
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "exports": { ".": "./dist/index.js", "./schema": "./dist/schema/collection-v2.1.0.json" },
-  "files": ["dist"],
+  "exports": {
+    ".": "./dist/index.js",
+    "./schema": "./dist/schema/collection-v2.1.0.json"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run"
   },
   "dependencies": {
-    "ajv-draft-04": "^1.0.0",
-    "ajv": "^8.17.1"
+    "ajv": "^8.17.1",
+    "ajv-draft-04": "^1.0.0"
+  },
+  "devDependencies": {
+    "postman-collection": "^5"
   }
 }
