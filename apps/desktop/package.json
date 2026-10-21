@@ -1,0 +1,49 @@
+{
+  "name": "@postbench/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Postbench desktop shell (Electron) around the web UI and the Node request engine",
+  "license": "MIT",
+  "author": "devtechedge",
+  "homepage": "https://github.com/devtechedge/postbench",
+  "main": "build/main.cjs",
+  "scripts": {
+    "build": "node scripts/bundle.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "start": "electron .",
+    "dist": "pnpm run build && electron-builder --linux AppImage zip --publish never",
+    "smoke": "node test/smoke.mjs"
+  },
+  "devDependencies": {
+    "@postbench/engine": "workspace:*",
+    "@postbench/web": "workspace:*",
+    "electron": "33",
+    "electron-builder": "25",
+    "esbuild": "^0.28.2",
+    "@playwright/test": "^1.49.1",
+    "@postbench/echo": "workspace:*"
+  },
+  "build": {
+    "appId": "dev.devtechedge.postbench",
+    "productName": "Postbench",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "build/**/*",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "build/main.cjs"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "zip"
+      ],
+      "category": "Development",
+      "artifactName": "postbench-${version}-linux-${arch}.${ext}",
+      "icon": "icon.png"
+    }
+  }
+}
