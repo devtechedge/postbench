@@ -182,3 +182,4 @@ export function prepareRequest(request: RequestObject | string, opts: PrepareOpt
   const resolvedAuth = auth ? (r.replaceInObject(auth) as Auth) : null;
   return { method, url: urlString, headers, body, auth: resolvedAuth };
 }
+export type { FormPart, HeaderEntry, PreparedBody, PreparedRequest, ProtocolProfileBehavior } from "./types.js";
