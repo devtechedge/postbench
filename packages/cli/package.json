@@ -1,0 +1,25 @@
+{
+  "name": "postbench",
+  "version": "0.1.0",
+  "description": "Command line runner for Postman collections with newman compatible flags",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "postbench": "dist/cli.js" },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@postbench/core": "workspace:*",
+    "@postbench/engine": "workspace:*",
+    "@postbench/runner": "workspace:*",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@postbench/echo": "workspace:*"
+  }
+}
