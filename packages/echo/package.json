@@ -1,0 +1,15 @@
+{
+  "name": "@postbench/echo",
+  "version": "0.1.0",
+  "description": "Local HTTP echo server with postman-echo style endpoints, for tests and offline conformance runs",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": { "postbench-echo": "dist/cli.js" },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  }
+}
