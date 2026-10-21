@@ -116,7 +116,9 @@ export function findEntity(root: { item: (Item | ItemGroup)[] }, nameOrId: strin
 
 export function parseEnvironment(text: string): EnvironmentFile {
   const body = text.charCodeAt(0) === 0xfeff ? text.slice(1) : text;
-  const data = JSON.parse(body) as EnvironmentFile;
+  const parsed = JSON.parse(body) as EnvironmentFile | EnvironmentFile["values"];
+  // A bare array of variables is accepted too (older globals exports).
+  const data = Array.isArray(parsed) ? { values: parsed } : parsed;
   if (!data || !Array.isArray(data.values)) {
     throw new CollectionFormatError("Not a Postman environment or globals file: expected values[]");
   }
