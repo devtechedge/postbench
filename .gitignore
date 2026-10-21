@@ -11,3 +11,4 @@ playwright-report
 packages/conformance/results/report.json
 apps/web/test-results
 .env*
+*.tsbuildinfo
