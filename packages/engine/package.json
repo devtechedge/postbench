@@ -1,0 +1,30 @@
+{
+  "name": "@postbench/engine",
+  "version": "0.1.0",
+  "description": "Request preparation and HTTP execution compatible with Postman request semantics",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./prepare": "./dist/prepare.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@postbench/core": "workspace:*",
+    "aws4": "^1.13.2",
+    "tough-cookie": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/aws4": "^1.11.6",
+    "@postbench/echo": "workspace:*"
+  }
+}
