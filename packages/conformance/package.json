@@ -1,0 +1,20 @@
+{
+  "name": "@postbench/conformance",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Runs the same collections through newman and postbench and compares results",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "conformance": "node dist/cli.js"
+  },
+  "dependencies": {
+    "@postbench/core": "workspace:*",
+    "@postbench/echo": "workspace:*",
+    "@postbench/runner": "workspace:*",
+    "newman": "^6.2.1"
+  }
+}
