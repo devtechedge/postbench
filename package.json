@@ -1,0 +1,19 @@
+{
+  "name": "postbench-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.15.0",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck",
+    "conformance": "pnpm --filter @postbench/conformance run conformance",
+    "e2e": "pnpm --filter @postbench/web run e2e"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "@types/node": "^22.10.0"
+  }
+}

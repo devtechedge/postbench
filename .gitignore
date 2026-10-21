@@ -1,0 +1,10 @@
+node_modules
+dist
+.turbo
+coverage
+release
+*.log
+/work
+test-results
+playwright-report
+.vercel
