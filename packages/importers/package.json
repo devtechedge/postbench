@@ -1,0 +1,16 @@
+{
+  "name": "@postbench/importers",
+  "version": "0.1.0",
+  "description": "Import OpenAPI 3, curl commands and HAR files into Collection v2.1",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": { "@postbench/core": "workspace:*", "yaml": "^2.6.1" }
+}
