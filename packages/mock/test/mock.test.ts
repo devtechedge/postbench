@@ -29,4 +29,27 @@ describe("mock server", () => {
     expect((await get("/nothing")).status).toBe(404);
     await m.close();
   });
+
+  it("matches GraphQL examples by operation name and answers CORS preflight", async () => {
+    const gql = (query: string, operationName?: string) => ({ method: "POST", url: "{{base}}/graphql", body: { mode: "graphql" as const, graphql: { query, ...(operationName ? { operationName } : {}) } } });
+    const g: Collection = {
+      info: { name: "G", schema: "s" },
+      item: [{
+        name: "graphql",
+        request: gql("query Me { me { id } }"),
+        response: [
+          { name: "me", code: 200, body: '{"data":{"me":{"id":"1"}}}', originalRequest: gql("query Me { me { id } }") },
+          { name: "posts", code: 200, body: '{"data":{"posts":[]}}', originalRequest: gql("query Posts { posts { id } }") },
+        ],
+      }],
+    };
+    const m = await startMockServer(g);
+    const post = (body: unknown) => fetch(m.url + "/graphql", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    expect(await (await post({ query: "query Posts { posts { id } }" })).json()).toEqual({ data: { posts: [] } });
+    expect(await (await post({ query: "{ me { id } }", operationName: "Me" })).json()).toEqual({ data: { me: { id: "1" } } });
+    const pre = await fetch(m.url + "/graphql", { method: "OPTIONS" });
+    expect(pre.status).toBe(204);
+    expect(pre.headers.get("access-control-allow-origin")).toBe("*");
+    await m.close();
+  });
 });
