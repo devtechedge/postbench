@@ -112,7 +112,7 @@ describe("runner", () => {
 
 describe("data files", () => {
   it("parses CSV with quotes, BOM and CRLF", () => {
-    expect(parseCsv('a,b\r\n1,"x, ""y"""\r\n2,\n')).toEqual([{ a: "1", b: 'x, "y"' }, { a: "2", b: "" }]);
+    expect(parseCsv('a,b\r\n1,"x, ""y"""\r\n"2",\n')).toEqual([{ a: 1, b: 'x, "y"' }, { a: "2", b: "" }]);
     expect(parseDataFile("\ufeffk\nv")).toEqual([{ k: "v" }]);
     expect(parseDataFile('[{"k":1}]', "d.json")).toEqual([{ k: 1 }]);
   });
