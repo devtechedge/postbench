@@ -23,12 +23,21 @@ importers:
 
   packages/cli:
     dependencies:
+      '@postbench/codegen':
+        specifier: workspace:*
+        version: link:../codegen
       '@postbench/core':
         specifier: workspace:*
         version: link:../core
       '@postbench/engine':
         specifier: workspace:*
         version: link:../engine
+      '@postbench/importers':
+        specifier: workspace:*
+        version: link:../importers
+      '@postbench/mock':
+        specifier: workspace:*
+        version: link:../mock
       '@postbench/runner':
         specifier: workspace:*
         version: link:../runner

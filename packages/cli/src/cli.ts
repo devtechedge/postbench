@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { Command } from "commander";
 import { runCommand } from "./run-command.js";
 
@@ -49,6 +49,54 @@ program
       process.stderr.write(`error: ${(err as Error).message}\n`);
       process.exitCode = 1;
     }
+  });
+
+program
+  .command("mock")
+  .argument("<collection>", "collection with saved examples")
+  .option("-p, --port <port>", "port", "4010")
+  .description("Serve saved examples as a local mock server")
+  .action(async (file: string, f: { port: string }) => {
+    const { parseCollection } = await import("@postbench/core");
+    const { startMockServer } = await import("@postbench/mock");
+    const m = await startMockServer(parseCollection(readFileSync(file, "utf8")).collection, Number(f.port));
+    console.log(`mock server on ${m.url} (${m.routes.length} routes)`);
+    for (const r of m.routes) console.log(`  ${r.method.padEnd(7)} ${r.path}  [${r.examples.map((e) => e.code ?? 200).join(", ")}]`);
+  });
+
+program
+  .command("import")
+  .argument("<file>", "OpenAPI (JSON/YAML), HAR, curl command file or Postman collection")
+  .option("-o, --output <path>", "output collection path (stdout when omitted)")
+  .description("Convert other formats into a Collection v2.1 file")
+  .action(async (file: string, f: { output?: string }) => {
+    const { importAny } = await import("@postbench/importers");
+    const { serializeCollection } = await import("@postbench/core");
+    const { kind, collection } = importAny(readFileSync(file, "utf8"));
+    const text = serializeCollection(collection);
+    if (f.output) {
+      writeFileSync(f.output, text);
+      console.error(`imported ${kind} into ${f.output}`);
+    } else process.stdout.write(text + "\n");
+  });
+
+program
+  .command("codegen")
+  .argument("<collection>", "collection file")
+  .argument("<request>", "request name or id")
+  .option("-l, --language <id>", "curl, javascript-fetch, python-requests, httpie", "curl")
+  .option("-e, --environment <path>", "environment file for variables")
+  .description("Print a code snippet for one request")
+  .action(async (file: string, name: string, f: { language: string; environment?: string }) => {
+    const core = await import("@postbench/core");
+    const { prepareRequest } = await import("@postbench/engine");
+    const { generate } = await import("@postbench/codegen");
+    const c = core.parseCollection(readFileSync(file, "utf8")).collection;
+    const entry = [...core.walkItems(c)].find((e) => e.item.name === name || e.item.id === name);
+    if (!entry) throw new Error(`No request named ${name}`);
+    const scopes = [f.environment ? core.VariableScope.fromEnvironment(core.parseEnvironment(readFileSync(f.environment, "utf8"))) : new core.VariableScope("environment"), new core.VariableScope("collection", c.variable ?? [])];
+    const req = prepareRequest(entry.item.request, { resolver: new core.VariableResolver(scopes, { dynamic: false }), parents: entry.parents, collectionAuth: c.auth });
+    console.log(generate(f.language as never, req));
   });
 
 program.parseAsync(process.argv);
