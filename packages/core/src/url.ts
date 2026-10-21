@@ -29,7 +29,12 @@ export function parseUrl(raw: string): UrlObject {
   let hostPort = slash >= 0 ? rest.slice(0, slash) : rest;
   const path = slash >= 0 ? rest.slice(slash + 1) : undefined;
   const at = hostPort.lastIndexOf("@");
-  if (at >= 0) hostPort = hostPort.slice(at + 1);
+  if (at >= 0) {
+    const info = hostPort.slice(0, at);
+    const colon = info.indexOf(":");
+    out.auth = colon >= 0 ? { user: info.slice(0, colon), password: info.slice(colon + 1) } : { user: info };
+    hostPort = hostPort.slice(at + 1);
+  }
   const portM = /:(\d+|\{\{[^{}]+\}\})$/.exec(hostPort);
   if (portM && !hostPort.startsWith("[")) {
     out.port = portM[1];
@@ -71,6 +76,9 @@ export function urlToString(url: Url | undefined, opts: { resolvePathVariables?:
   const host = asArray(url.host);
   if (!host.length) return url.raw ?? "";
   let s = url.protocol ? `${url.protocol}://` : "";
+  if (url.auth && (url.auth.user || url.auth.password !== undefined)) {
+    s += (url.auth.user ?? "") + (url.auth.password !== undefined ? `:${url.auth.password}` : "") + "@";
+  }
   s += host.join(".");
   if (url.port) s += `:${url.port}`;
   const pathVars = new Map<string, unknown>(asArray<Variable>(url.variable).map((v) => [v.key ?? v.id ?? "", v.value]));

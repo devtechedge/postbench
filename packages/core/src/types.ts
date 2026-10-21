@@ -42,6 +42,8 @@ export interface UrlObject {
   query?: QueryParam[];
   hash?: string;
   variable?: Variable[];
+  /** userinfo (`user:password@`), kept by the SDK though not in the schema. */
+  auth?: { user?: string; password?: string };
 }
 
 export type Url = string | UrlObject;
