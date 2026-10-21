@@ -38,3 +38,13 @@ test("sends a request and runs tests against a local echo server", async ({ page
   await page.getByRole("button", { name: /tests \(2\/2\)/ }).click();
   await expect(page.getByTestId("test-results")).toContainText("PASS arg");
 });
+
+test("theme toggle switches to light mode and persists", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page.getByTestId("theme-toggle").click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await expect(page.getByRole("button", { name: "Switch to dark mode" })).toBeVisible();
+});
