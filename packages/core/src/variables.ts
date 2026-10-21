@@ -25,7 +25,7 @@ export class VariableScope {
   static fromEnvironment(file: EnvironmentFile, name: ScopeName = "environment"): VariableScope {
     return new VariableScope(
       name,
-      file.values.map((v) => ({ key: v.key, value: v.value, type: v.type as Variable["type"], disabled: v.enabled === false })),
+      file.values.map((v) => ({ key: v.key, value: v.value, type: v.type as Variable["type"], disabled: v.enabled === false || (v as { disabled?: boolean }).disabled === true })),
     );
   }
 
