@@ -371,3 +371,4 @@ export function requireModule(name: string): unknown {
   if (name === "btoa") return (s: string) => globalThis.btoa(s);
   throw new Error(`Cannot find module '${name}'`);
 }
+export type * from "./types.js";

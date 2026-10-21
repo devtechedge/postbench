@@ -70,6 +70,14 @@ export function handler(req: http.IncomingMessage, res: http.ServerResponse, bod
     res.writeHead(code, { "Content-Type": typeof payload === "string" ? "text/plain; charset=utf-8" : "application/json; charset=utf-8", ...extra });
     res.end(req.method === "HEAD" ? undefined : text);
   };
+  // Permissive CORS so browser clients (the web demo) can call it.
+  res.setHeader("Access-Control-Allow-Origin", req.headers.origin ?? "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Expose-Headers", "*");
+  if (req.method === "OPTIONS" && req.headers["access-control-request-method"]) {
+    res.writeHead(204, { "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS", "Access-Control-Allow-Headers": req.headers["access-control-request-headers"] ?? "*" });
+    return void res.end();
+  }
   const path = u.pathname.replace(/\/+$/, "") || "/";
   const method = req.method ?? "GET";
   let m: RegExpExecArray | null;
