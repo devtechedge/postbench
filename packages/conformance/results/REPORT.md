@@ -7,7 +7,7 @@ Reference: newman 6.2.3. Generated 2026-10-21T19:08:15.839Z.
 | Collections | 45 |
 | Identical results | 30 |
 | Differences | 12 |
-| Unsupported (v1 format) | 3 |
+| Unsupported (v1 or non-collection files) | 3 |
 | Errors | 0 |
 | Assertions matched | 220 / 287 (76.7%) |
 

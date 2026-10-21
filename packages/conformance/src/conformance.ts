@@ -229,7 +229,7 @@ export function markdown(r: Report): string {
     `| Collections | ${t.cases} |`,
     `| Identical results | ${t.match} |`,
     `| Differences | ${t.mismatch} |`,
-    `| Unsupported (v1 format) | ${t.unsupported} |`,
+    `| Unsupported (v1 or non-collection files) | ${t.unsupported} |`,
     `| Errors | ${t.error} |`,
     `| Assertions matched | ${t.matchedAssertions} / ${t.newmanAssertions} (${pct}%) |`,
     ``,
