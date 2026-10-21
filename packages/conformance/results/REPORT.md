@@ -1,15 +1,15 @@
 # Conformance report
 
-Reference: newman 6.2.3. Generated 2026-10-21T19:06:50.473Z.
+Reference: newman 6.2.3. Generated 2026-10-21T19:08:15.839Z.
 
 | Metric | Value |
 | --- | --- |
 | Collections | 45 |
-| Identical results | 27 |
-| Differences | 15 |
+| Identical results | 30 |
+| Differences | 12 |
 | Unsupported (v1 format) | 3 |
 | Errors | 0 |
-| Assertions matched | 216 / 287 (75.3%) |
+| Assertions matched | 220 / 287 (76.7%) |
 
 | Collection | Result | newman assertions (failed) | postbench assertions (failed) |
 | --- | --- | --- | --- |
@@ -17,14 +17,14 @@ Reference: newman 6.2.3. Generated 2026-10-21T19:06:50.473Z.
 | newman/bom-and-encoding/bom-in-environment-file.postman_collection.json | match | 2 (0) | 2 (0) |
 | newman/bom-and-encoding/utf16-le-encoding-in-env.postman_collection.json | match | 2 (0) | 2 (0) |
 | newman/case-insen-header-sandbox.postman_collection.json | match | 1 (0) | 1 (0) |
-| newman/clear-vars-sandbox.postman_collection.json | mismatch | 7 (0) | 7 (1) |
+| newman/clear-vars-sandbox.postman_collection.json | match | 7 (0) | 7 (0) |
 | newman/comma-test-csv/comma-test-csv.postman_collection.json | match | 1 (0) | 1 (0) |
 | newman/cookie-jar.postman_collection.json | match | 2 (0) | 2 (0) |
 | newman/crypto-md5.postman_collection.json | match | 1 (0) | 1 (0) |
 | newman/csv-with-bom/csv-with-bom.postman_collection.json | mismatch | 1 (0) | 1 (1) |
 | newman/custom-http-method/custom-http-method.postman_collection.json | match | 9 (9) | 9 (9) |
 | newman/data-file-var-replacement/data-file-var-replacement.postman_collection.json | match | 0 (0) | 0 (0) |
-| newman/disabled-and-duplicate-variables/disabled-and-duplicates.postman_collection.json | mismatch | 3 (0) | 3 (2) |
+| newman/disabled-and-duplicate-variables/disabled-and-duplicates.postman_collection.json | match | 3 (0) | 3 (0) |
 | newman/distinct-random-int.postman_collection.json | match | 1 (0) | 1 (0) |
 | newman/dynamic-var-replacement.postman_collection.json | match | 3 (0) | 3 (0) |
 | newman/echo-v2.postman_collection.json | mismatch | 64 (12) | 64 (11) |
@@ -46,7 +46,7 @@ Reference: newman 6.2.3. Generated 2026-10-21T19:06:50.473Z.
 | newman/redirect-test/redirect-with-body.postman_collection.json | match | 0 (0) | 0 (0) |
 | newman/request-body-with-get.postman_collection.json | match | 3 (3) | 3 (3) |
 | newman/request-chaining-test.postman_collection.json | match | 7 (0) | 7 (0) |
-| newman/request-name-in-script.postman_collection.json | mismatch | 1 (0) | 1 (1) |
+| newman/request-name-in-script.postman_collection.json | match | 1 (0) | 1 (0) |
 | newman/sandbox-libraries.postman_collection.json | mismatch | 10 (0) | 8 (8) |
 | newman/semicolon-tests.postman_collection.json | match | 2 (2) | 2 (2) |
 | newman/set-next-request.postman_collection.json | match | 1 (0) | 1 (0) |
@@ -61,19 +61,10 @@ Reference: newman 6.2.3. Generated 2026-10-21T19:06:50.473Z.
 
 ## Differences
 
-### newman/clear-vars-sandbox.postman_collection.json
-
-- step 1 "After clearing" assertion 2: ["Recreated vars",true] vs ["Recreated vars",false]
-
 ### newman/csv-with-bom/csv-with-bom.postman_collection.json
 
 - step 0: item "undefined" vs ""
 - step 0 "undefined" assertion 0: ["CSV parsing tests",true] vs ["CSV parsing tests",false]
-
-### newman/disabled-and-duplicate-variables/disabled-and-duplicates.postman_collection.json
-
-- step 0 "http://127.0.0.1:35221/get" assertion 0: ["Disabled variable",true] vs ["Disabled variable",false]
-- step 0 "http://127.0.0.1:35221/get" assertion 1: ["1 Enabled and 1 Disabled variable",true] vs ["1 Enabled and 1 Disabled variable",false]
 
 ### newman/echo-v2.postman_collection.json
 
@@ -116,10 +107,6 @@ Reference: newman 6.2.3. Generated 2026-10-21T19:06:50.473Z.
 - step 0 "objectPrototype" assertion 8: ["Number prototype format",true] vs null
 - step 0 "objectPrototype" assertion 9: ["String prototype endsWith",true] vs null
 
-### newman/request-name-in-script.postman_collection.json
-
-- step 0 "r1" assertion 0: ["correct request name and description",true] vs ["correct request name and description",false]
-
 ### newman/sandbox-libraries.postman_collection.json
 
 - step 0 "AJV" assertion 0: ["ajv.validate",true] vs null
@@ -137,8 +124,8 @@ Reference: newman 6.2.3. Generated 2026-10-21T19:06:50.473Z.
 
 - step 0 "r1" assertion 6: ["tv4 present",true] vs null
 - step 0 "r1" assertion 7: ["CryptoJS md5",true] vs null
-- step 1 "r2" assertion 1: ["Correct GUID: 27046cd5-5ec7-4eb7-9592-443fe12f0a95",true] vs ["Correct GUID: 4b441862-6901-41cd-a94f-ad804c556b3d",true]
-- step 1 "r2" assertion 2: ["Correct Random: 58",true] vs ["Correct Random: 435",true]
+- step 1 "r2" assertion 1: ["Correct GUID: 76977b0c-158c-401c-b81a-e800b70aa22b",true] vs ["Correct GUID: 276900a5-2420-4626-948b-e615f38dd8a7",true]
+- step 1 "r2" assertion 2: ["Correct Random: 220",true] vs ["Correct Random: 401",true]
 
 ### newman/tc4/tc4.postman_collection.json
 
