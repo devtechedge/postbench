@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "be3e67ba-8fef-4e64-b907-059422a03794",
+		"name": "Favorite API Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21686506"
+	},
+	"item": [
+		{
+			"name": "GET all favorites",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api-with-bugs.practicesoftwaretesting.com/favorites",
+					"protocol": "https",
+					"host": [
+						"api-with-bugs",
+						"practicesoftwaretesting",
+						"com"
+					],
+					"path": [
+						"favorites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST add favorite",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\": {{productId}},\n    \"userId\": {{userId}}\n}"
+				},
+				"url": {
+					"raw": "https://api-with-bugs.practicesoftwaretesting.com/favorites",
+					"protocol": "https",
+					"host": [
+						"api-with-bugs",
+						"practicesoftwaretesting",
+						"com"
+					],
+					"path": [
+						"favorites"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET specific favorite",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api-with-bugs.practicesoftwaretesting.com/favorites/{{favoriteId}}",
+					"protocol": "https",
+					"host": [
+						"api-with-bugs",
+						"practicesoftwaretesting",
+						"com"
+					],
+					"path": [
+						"favorites",
+						"{{favoriteId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE favorite",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://api-with-bugs.practicesoftwaretesting.com/favorites/{{favoriteId}}",
+					"protocol": "https",
+					"host": [
+						"api-with-bugs",
+						"practicesoftwaretesting",
+						"com"
+					],
+					"path": [
+						"favorites",
+						"{{favoriteId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

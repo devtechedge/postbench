@@ -1,0 +1,6 @@
+cheatsnake/emojihub MIT 7783cd8143d7c95b emojihub
+Paybook/sync-rest MIT f4707025aa844442 paybook-sync
+GiovaneIwamoto/currency-converter MIT ed6e95c0a8efad64 currency-converter
+prasadhonrao/sportiverse MIT 71ed14e26b464a10 sportiverse-orders
+TRIETDINHDUY/practice-software-testing MIT 60c3e300a519824b practice-software-testing
+federal-courts-software-factory/open-case-filing-system CC0-1.0 1d1e517b1675c41d open-case-filing
