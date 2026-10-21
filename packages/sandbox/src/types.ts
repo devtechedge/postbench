@@ -55,6 +55,7 @@ export interface ScriptContext {
   iteration?: number;
   iterationCount?: number;
   requestName?: string;
+  requestDescription?: string;
   requestId?: string;
   scopes: {
     local: VariableScope;

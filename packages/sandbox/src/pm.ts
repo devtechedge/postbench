@@ -304,21 +304,30 @@ export function buildGlobals(ctx: ScriptContext): BuiltGlobals {
     globals: s.globals.toObject(),
     data: s.data.toObject(),
     iteration: ctx.iteration ?? 0,
-    request: { url: ctx.request.url, method: ctx.request.method, headers: req.obj.headers.toObject(), data: ctx.request.body, name: ctx.requestName ?? "", id: ctx.requestId },
+    request: { url: ctx.request.url, method: ctx.request.method, headers: req.obj.headers.toObject(), data: ctx.request.body, name: ctx.requestName ?? "", description: ctx.requestDescription ?? "", id: ctx.requestId },
     postman: {
-      setEnvironmentVariable: (k: string, v: unknown) => s.environment.set(k, v),
+      setEnvironmentVariable: (k: string, v: unknown) => { s.environment.set(k, v); syncLegacy(); },
       getEnvironmentVariable: (k: string) => s.environment.get(k),
-      clearEnvironmentVariable: (k: string) => s.environment.unset(k),
-      clearEnvironmentVariables: () => s.environment.clear(),
-      setGlobalVariable: (k: string, v: unknown) => s.globals.set(k, v),
+      clearEnvironmentVariable: (k: string) => { s.environment.unset(k); syncLegacy(); },
+      clearEnvironmentVariables: () => { s.environment.clear(); syncLegacy(); },
+      setGlobalVariable: (k: string, v: unknown) => { s.globals.set(k, v); syncLegacy(); },
       getGlobalVariable: (k: string) => s.globals.get(k),
-      clearGlobalVariable: (k: string) => s.globals.unset(k),
-      clearGlobalVariables: () => s.globals.clear(),
+      clearGlobalVariable: (k: string) => { s.globals.unset(k); syncLegacy(); },
+      clearGlobalVariables: () => { s.globals.clear(); syncLegacy(); },
       setNextRequest,
       getResponseHeader: (k: string) => response?.headers.get(k),
       getResponseCookie: (n: string) => (cookieList.has(n) ? { name: n, value: cookieList.get(n) } : undefined),
     },
   };
+  // Postman mutates the legacy environment/globals objects in place when the
+  // postman.* setters run, so scripts can read their own writes.
+  function syncLegacy() {
+    for (const [key, scope] of [["environment", s.environment], ["globals", s.globals]] as const) {
+      const target = legacy[key] as Record<string, unknown>;
+      for (const k of Object.keys(target)) delete target[k];
+      Object.assign(target, scope.toObject());
+    }
+  }
   if (response) {
     Object.assign(legacy, {
       responseBody: resText,

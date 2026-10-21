@@ -162,6 +162,7 @@ export class CollectionRun extends EventEmitter {
                 iteration,
                 iterationCount: iterations,
                 requestName: item.name,
+                requestDescription: descriptionText(item.request),
                 requestId: item.id,
                 scopes,
                 request: current,
@@ -301,3 +302,11 @@ export function runCollection(collection: Collection, options: RunOptions = {}):
 }
 
 export type { ItemGroup };
+
+function descriptionText(req: unknown): string {
+  if (!req || typeof req !== "object") return "";
+  const d = (req as { description?: unknown }).description;
+  if (typeof d === "string") return d;
+  if (d && typeof d === "object" && typeof (d as { content?: unknown }).content === "string") return (d as { content: string }).content;
+  return "";
+}
