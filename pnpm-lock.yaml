@@ -55,6 +55,22 @@ importers:
         specifier: ^1.11.6
         version: 1.11.6
 
+  packages/runner:
+    dependencies:
+      '@postbench/core':
+        specifier: workspace:*
+        version: link:../core
+      '@postbench/engine':
+        specifier: workspace:*
+        version: link:../engine
+      '@postbench/sandbox':
+        specifier: workspace:*
+        version: link:../sandbox
+    devDependencies:
+      '@postbench/echo':
+        specifier: workspace:*
+        version: link:../echo
+
   packages/sandbox:
     dependencies:
       '@postbench/core':

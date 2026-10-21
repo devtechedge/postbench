@@ -1,0 +1,23 @@
+{
+  "name": "@postbench/runner",
+  "version": "0.1.0",
+  "description": "Collection runner with newman compatible options and reporters",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@postbench/core": "workspace:*",
+    "@postbench/engine": "workspace:*",
+    "@postbench/sandbox": "workspace:*"
+  },
+  "devDependencies": {
+    "@postbench/echo": "workspace:*"
+  }
+}
